@@ -10,6 +10,11 @@ import br.edu.ifsul.dao.ReceituarioDAO;
 import br.edu.ifsul.modelo.Especialidade;
 import br.edu.ifsul.modelo.Receituario;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,7 +80,24 @@ public class ServletReceituario extends HttpServlet  {
             Receituario obj = new Receituario();
             obj.setId(id);
             obj.setPosologia(request.getParameter("posologia"));
-            obj.setValidade(request.getParameter("validade"));
+            
+            
+            
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar validade = Calendar.getInstance();
+            try {
+                validade.setTime(sdf.parse(request.getParameter("validade")));
+            } catch (ParseException ex) {
+                Logger.getLogger(ServletReceituario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            obj.setValidade(validade);
+            
+             
+            
+             
+             
             
             dao.setObjetoSelecionado(obj);
             if (dao.validaObjeto(obj)){
