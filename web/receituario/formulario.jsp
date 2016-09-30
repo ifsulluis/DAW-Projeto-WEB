@@ -4,6 +4,7 @@
     Author     : luis
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifsul.dao.ReceituarioDAO"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <jsp:useBean id="receituarioDao" scope="session"
@@ -38,7 +39,7 @@
                            size="40" /><br/>            
             Validade:  <input type="text" name="validade" id="validade"
                                value="<%= receituarioDao.getObjetoSelecionado().getValidade()== null
-                           ? "" : receituarioDao.getObjetoSelecionado().getValidade()%>"
+                           ? "" : new SimpleDateFormat("dd/MM/yyyy").format( receituarioDao.getObjetoSelecionado().getValidade().getTime())%>"
                            size="40" /><br/>            
             
             
